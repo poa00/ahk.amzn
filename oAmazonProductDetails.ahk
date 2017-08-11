@@ -261,7 +261,7 @@ class oAmazonProductDetails {
                 oThis := this		;make the class accessible from GUI threads
                 
                 this.bComError := ComObjError( false )  
-                Gui, New, % "hwnd" "hWndWebBrowser" " +Resize" " labelWebBrowser"
+                Gui, New, % "hwnd" "hWndWebBrowser" " +Resize" " labelAPDWebBrowser"
                 this.hWnd := hWndWebBrowser
                 
                 _iWindowWidth  := this.iWindowWidth
@@ -285,7 +285,7 @@ class oAmazonProductDetails {
                 /**
                  * Called when the GUI window is sized.
                  */
-                WebBrowserSize:
+                APDWebBrowserSize:
 
                     ; The window has been minimized.  No action needed.
                     If (A_EventInfo = 1)  {
