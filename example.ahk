@@ -4,6 +4,7 @@
 #Include %A_ScriptDir%\oAmazonProductDetails.ahk
 
 _oAPD := new oAmazonProductDetails( "B01DOWUC08", "amazon.co.jp", {} )
+_oAPD._bShowGUI := true
 _aDetails := _oAPD.get()
 _aDetails.delete( "Content" )
 msgbox % getKeyValues( _aDetails )

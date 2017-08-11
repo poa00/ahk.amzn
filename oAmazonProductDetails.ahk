@@ -3,7 +3,7 @@
  *
  * An AutoHotkey class that retrieves Amazon product details.
  *  
- * @version 1.0.0
+ * @version 1.1.0
  */
  
 /**
@@ -152,7 +152,7 @@ class oAmazonProductDetails {
         }        
         getContentImages() {
             _aImageContainer := []
-            for k, _sElementID in [ "productDescription", "aplus", "dp-container" ] {
+            for k, _sElementID in [ "productDescription", "aplus", "descriptionAndDetails" ] {
                 for _i, _sURL in this._getImageURLsOfElementByID( _sElementID ) {
                     _aImageContainer.push( _sURL )
                 }
@@ -199,11 +199,11 @@ class oAmazonProductDetails {
         }
             _getThumbnailNodes( oDoc ) {
                 _aResult := []
-                _nodeTags := oDoc.getElementsByTagName( "div" )
-                loop % _nodeTags.length {
-                    _nodeThis := _nodeTags[ A_Index - 1 ] 
-                    if ( "ivThumb" != _nodeThis.getAttribute( "class" ) ) {
-                        continue
+                _nodeThumb := true
+                while ( _nodeThumb ) {
+                    _nodeThumb := oDoc.getElementById( "ivImage_" A_Index )
+                    if ( ! _nodeThumb.nodeType ) {
+                        break
                     }
                     _aResult.push( _nodeThis )
                 }
@@ -531,6 +531,7 @@ class oAmazonProductDetails {
             
             ; case for the pronunciation pop up window. e.g.http://www.ldoceonline.com/pronunciation/sound_player.html
             ; also images, menus pops up
+            ; @todo this is a nested class and not sure if this instantiation using the class name applies globally.
             new oWebBrowser(_sNewURL, "", True, "center w420 h420", False, "", "", 0, 0, False)
 
             return
