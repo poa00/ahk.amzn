@@ -134,11 +134,15 @@ class oAmazonProductDetails {
             return oMatches[ 0 ]
         }
         getFeatures() {
-            _nodeFeatures := this.oWB.document.getElementById( "feature-bullets" )
-            _nodeLis      := _nodeFeatures.getElementsByTagName( "li" )
-            _sFeatures    := ""
+            
+            _nodeFeatures  := this.oWB.document.getElementById( "feature-bullets" )
+            _nodeLis       := _nodeFeatures.getElementsByTagName( "li" )
+            _sFeatures     := ""
             loop % _nodeLis.length {
                 _nodeThis  := _nodeLis[ A_Index - 1 ]
+                if ( _nodeThis.getAttribute( "id" ) = "replacementPartsFitmentBullet" ) {
+                    continue
+                }
                 _sFeatures .= trim( _nodeThis.innerText ) "`n"
             }
 ; @todo apply the callback
@@ -205,7 +209,7 @@ class oAmazonProductDetails {
                     if ( ! _nodeThumb.nodeType ) {
                         break
                     }
-                    _aResult.push( _nodeThis )
+                    _aResult.push( _nodeThumb )
                 }
                 return _aResult
             }        
